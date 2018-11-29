@@ -22,7 +22,7 @@ window.onload = function () {
     let current_url = document.URL;
     //console.log("current url 3 is :" + getvidurl(current_url));
     $.ajax({
-        url: "http://tmibvishal.000webhostapp.com/getting_json.php",
+        url: "https://tmibvishal.000webhostapp.com/getting_json.php",
         method: "get",
         data: {"link": getvidurl(current_url)},
         success: function (data) {
