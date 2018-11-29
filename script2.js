@@ -7,6 +7,15 @@ function getvidurl(wholeUrl) {
     return decodeURIComponent(yUrl);
 }
 
+function downloadVideo(but){
+    let parent = but.parentElement;
+    console.log(parent);
+    let url = parent.children[0].value;
+    let a = document.createElement("a");
+    a.href = url;
+    a.click();
+}
+
 window.onload = function () {
     let parent = document.getElementById("video");
     console.log("yo boi");
@@ -32,7 +41,7 @@ window.onload = function () {
             let commonlyUsedAvailableFormats = jsonfile["commonlyUsedAvailableFormats"];
             commonlyUsedAvailableFormats.forEach(function (item) {
 
-                str+= `<option value="${item["url"]}">${item["quality"]} ${item["type"]}`;
+                str+= `<option value="${item["url"]}" itag="${item["itag"]}">${item["quality"]} ${item["type"]}`;
 
                 if (item["size"] != "0MB") {
                     str+= ` (${item["size"]})`;
@@ -41,7 +50,7 @@ window.onload = function () {
                 str+= `</option>`;
             });
 
-            str += `</select><br><button>Download</button></div>`;
+            str += `</select><br><button onclick="downloadVideo(this)">Download</button></div>`;
 
 
             //for all formats
