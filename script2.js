@@ -32,18 +32,18 @@ window.onload = function () {
             console.log(jsonfile["videoAuthor"]);
             let DOMtitle = document.createElement("div");
 
-            let str = `<strong>${jsonfile["videoTitle"]}</strong> <br>
+            let str = `<div style="margin-top: 30px" class="flex-container"><div class="box1"><div style="text-align: center;"><strong>${jsonfile["videoTitle"]}</strong> <br>
 <strong>Channel:</strong> ${jsonfile["videoAuthor"]} <br>`;
             if (jsonfile["videoViews"] != null)
                 str += `<strong>Views:</strong> ${jsonfile["videoViews"]} <br>`;
-            str += `<br> <div class="crop"><img src="${jsonfile["videoThumbURL"]}" width="355"></div>  <br><br> <strong>Commonly used Available Formats</strong><br> <div style="margin: 10px;"><select>`;
+            str += `<br> <div class="crop"><img src="${jsonfile["videoThumbURL"]}" width="355"></div></div></div> <div class="box2"><div style="text-align: center; "><strong>Commonly used Available Formats</strong><br> <div style="margin: 10px;"><select>`;
 
             let commonlyUsedAvailableFormats = jsonfile["commonlyUsedAvailableFormats"];
             commonlyUsedAvailableFormats.forEach(function (item) {
 
-                str+= `<option value="${item["url"]}" itag="${item["itag"]}">${item["quality"]} ${item["type"]}`;
+                str+= `<option value='${item["url"]}' itag="${item["itag"]}">${item["quality"]} ${item["type"]}`;
 
-                if (item["size"] != "0MB") {
+                if (item["size"] != "0 MB") {
                     str+= ` (${item["size"]})`;
                 }
 
@@ -59,18 +59,19 @@ window.onload = function () {
             let allAvailableFormats = jsonfile["remainingFormats"];
             allAvailableFormats.forEach(function (item) {
 
-                str+= `<option value="${item["url"]}">${item["quality"]} ${item["type"]}`;
+                str+= `<option value='${item["url"]}' itag="${item["itag"]}">${item["quality"]} ${item["type"]}`;
 
-                if (item["size"] != "0MB") {
+                if (item["size"] != "0 MB") {
                     str+= ` (${item["size"]})`;
                 }
 
                 str+= `</option>`;
             });
 
-            str += `</select><br><button>Download</button></div>`;
+            str += `</select><br><button onclick="downloadVideo(this)">Download</button></div></div></div></div>`;
 
 
+            console.log(str);
             DOMtitle.innerHTML = str;
             parent.innerText = "";
             parent.appendChild(DOMtitle);
