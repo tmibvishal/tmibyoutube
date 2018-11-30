@@ -7,10 +7,17 @@ function getvidurl(wholeUrl) {
     return decodeURIComponent(yUrl);
 }
 
-function downloadVideo(but){
-    let parent = but.parentElement;
-    console.log(parent);
-    let url = parent.children[0].value;
+function downloadVideo1(but){
+    let parent = document.getElementById("selectid1")
+    let url = parent.value;
+    let a = document.createElement("a");
+    a.href = url;
+    a.click();
+}
+
+function downloadVideo2(but){
+    let parent = document.getElementById("selectid2")
+    let url = parent.value;
     let a = document.createElement("a");
     a.href = url;
     a.click();
@@ -36,7 +43,7 @@ window.onload = function () {
 <strong>Channel:</strong> ${jsonfile["videoAuthor"]} <br>`;
             if (jsonfile["videoViews"] != null)
                 str += `<strong>Views:</strong> ${jsonfile["videoViews"]} <br>`;
-            str += `<br> <div class="crop"><img src="${jsonfile["videoThumbURL"]}" width="355"></div></div></div> <div class="box2"><div style="text-align: center; "><strong>Commonly used Available Formats</strong><br> <div style="margin: 10px;"><select>`;
+            str += `<br> <div class="crop"><img src="${jsonfile["videoThumbURL"]}" width="355"></div></div></div> <div class="box2"><div style="text-align: center; "><strong>Commonly used Available Formats</strong><br> <div style="margin: 10px;"><select id="selectid1">`;
 
             let commonlyUsedAvailableFormats = jsonfile["commonlyUsedAvailableFormats"];
             commonlyUsedAvailableFormats.forEach(function (item) {
@@ -50,11 +57,11 @@ window.onload = function () {
                 str+= `</option>`;
             });
 
-            str += `</select><br><button onclick="downloadVideo(this)">Download</button></div>`;
+            str += `</select><br><button onclick="downloadVideo1()">Download</button></div>`;
 
 
             //for all formats
-            str += `<br><br> <strong>All available Video (without Audio) and Audio Formats </strong><br> <div style="margin: 10px;"><select>`;
+            str += `<br><br> <strong>All available Video (without Audio) and Audio Formats </strong><br> <div style="margin: 10px;"><select id="selectid2">`;
 
             let allAvailableFormats = jsonfile["remainingFormats"];
             allAvailableFormats.forEach(function (item) {
@@ -68,7 +75,7 @@ window.onload = function () {
                 str+= `</option>`;
             });
 
-            str += `</select><br><button onclick="downloadVideo(this)">Download</button></div></div></div></div>`;
+            str += `</select><br><button onclick="downloadVideo2()">Download</button></div></div></div></div>`;
 
 
             console.log(str);
