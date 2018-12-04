@@ -39,11 +39,11 @@ window.onload = function () {
             console.log(jsonfile["videoAuthor"]);
             let DOMtitle = document.createElement("div");
 
-            let str = `<div style="margin-top: 30px" class="flex-container"><div class="box1"><div style="text-align: center;"><strong>${jsonfile["videoTitle"]}</strong> <br>
+            let str = `<div class="flex-container"><div class="box1_style2"><div style="text-align: center; margin: auto;"><strong>${jsonfile["videoTitle"]}</strong> <br>
 <strong>Channel:</strong> ${jsonfile["videoAuthor"]} <br>`;
             if (jsonfile["videoViews"] != null)
                 str += `<strong>Views:</strong> ${jsonfile["videoViews"]} <br>`;
-            str += `<br> <div class="crop"><img src="${jsonfile["videoThumbURL"]}" width="355"></div></div></div> <div class="box2"><div style="text-align: center; "><strong>Commonly used Available Formats</strong><br> <div style="margin: 10px;"><select id="selectid1">`;
+            str += `<br> <div class="crop"><img src="${jsonfile["videoThumbURL"]}" width="355"></div></div></div> <div class="box1_style2"><div style="text-align: center; margin: auto;"><strong>Commonly used Available Formats</strong><br> <div style="margin: 10px;"><select id="selectid1"><optgroup label="Video Formats">`;
 
             let commonlyUsedAvailableFormats = jsonfile["commonlyUsedAvailableFormats"];
             commonlyUsedAvailableFormats.forEach(function (item) {
@@ -57,11 +57,11 @@ window.onload = function () {
                 str+= `</option>`;
             });
 
-            str += `</select><br><button onclick="downloadVideo1()">Download</button></div>`;
+            str += `</optgroup></select> <button onclick="downloadVideo1()">Download</button></div>`;
 
 
             //for all formats
-            str += `<br><br> <strong>All available Video (without Audio) and Audio Formats </strong><br> <div style="margin: 10px;"><select id="selectid2">`;
+            str += `<br><br> <strong>All available Video (without Audio) and Audio Formats </strong><br> <div style="margin: 10px;"><select id="selectid2"><optgroup label="Videos without audio and audio only">`;
 
             let allAvailableFormats = jsonfile["remainingFormats"];
             allAvailableFormats.forEach(function (item) {
@@ -75,7 +75,7 @@ window.onload = function () {
                 str+= `</option>`;
             });
 
-            str += `</select><br><button onclick="downloadVideo2()">Download</button></div></div></div></div>`;
+            str += `</optgroup></select> <button onclick="downloadVideo2()">Download</button></div></div></div></div><br><div style="text-align: center;">By using this website, you accept our Terms of Service and agree not to download Copyright content.</div><br><br>`;
 
 
             console.log(str);

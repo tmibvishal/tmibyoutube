@@ -108,15 +108,7 @@ body {
     transform: translateX(0);
 }
 
-.crop {
-    text-align: center;
-    height: 200px;
-    overflow: hidden;
-}
 
-.crop img {
-    margin-top: -33.33px;
-}
 
 #video {
 

@@ -1,0 +1,53 @@
+.box1_style2 {
+    margin-top: 30px;
+    display: flex;
+    width: 50%;
+    text-align: center;
+}
+
+.box1_style2 {
+    margin-top: 30px;
+    display: flex;
+    width: 50%;
+}
+
+.crop {
+    text-align: center;
+    height: 198px;
+    overflow: hidden;
+}
+
+.crop img {
+    margin-top: -34px;
+}
+
+select{
+    font-size: 1.1rem;
+}
+button{
+    font-size: 1.1rem;
+}
+@media screen and (max-width: 800px){
+    .box1_style2{
+        text-align: center;
+        width: 100%;
+    }
+    .box2_style2{
+        text-align: center;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    .crop {
+        text-align: center;
+        height: auto;
+        overflow: auto;
+    }
+
+    .crop img {
+        width: 100%;
+        margin-top: 0px;
+    }
+}
