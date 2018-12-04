@@ -24,8 +24,11 @@ function downloadVideo2(but){
 }
 
 window.onload = function () {
+    document.getElementById("getVidBut").addEventListener("click", function(){
+        document.getElementById("form1").submit();
+    });
     let parent = document.getElementById("video");
-    console.log("yo boi");
+    console.log("Tmib Video Downloader web v1.0");
     let current_url = document.URL;
     //console.log("current url 3 is :" + getvidurl(current_url));
     $.ajax({
@@ -33,59 +36,69 @@ window.onload = function () {
         method: "get",
         data: {"link": getvidurl(current_url)},
         success: function (data) {
-            //console.log((data));
-            let jsonfile = JSON.parse(data);
-            console.log(jsonfile["videoTitle"]);
-            console.log(jsonfile["videoAuthor"]);
             let DOMtitle = document.createElement("div");
+            try{
+                //console.log((data));
+                let jsonfile = JSON.parse(data);
+                //console.log(jsonfile["videoTitle"]);
+                //console.log(jsonfile["videoAuthor"]);
 
-            let str = `<div class="flex-container"><div class="box1_style2"><div style="text-align: center; margin: auto;"><strong>${jsonfile["videoTitle"]}</strong> <br>
+                let str = `<div class="flex-container"><div class="box1_style2"><div style="text-align: center; margin: auto;"><strong>${jsonfile["videoTitle"]}</strong> <br>
 <strong>Channel:</strong> ${jsonfile["videoAuthor"]} <br>`;
-            if (jsonfile["videoViews"] != null)
-                str += `<strong>Views:</strong> ${jsonfile["videoViews"]} <br>`;
-            str += `<br> <div class="crop"><img src="${jsonfile["videoThumbURL"]}" width="355"></div></div></div> <div class="box1_style2"><div style="text-align: center; margin: auto;"><strong>Commonly used Available Formats</strong><br> <div style="margin: 10px;"><select id="selectid1"><optgroup label="Video Formats">`;
+                if (jsonfile["videoViews"] != null)
+                    str += `<strong>Views:</strong> ${jsonfile["videoViews"]} <br>`;
+                str += `<br> <div class="crop"><img src="${jsonfile["videoThumbURL"]}" width="355"></div></div></div> <div class="box1_style2"><div style="text-align: center; margin: auto;"><strong>Commonly used Available Formats</strong><br> <div style="margin: 10px;"><select id="selectid1"><optgroup label="Video Formats">`;
 
-            let commonlyUsedAvailableFormats = jsonfile["commonlyUsedAvailableFormats"];
-            commonlyUsedAvailableFormats.forEach(function (item) {
+                let commonlyUsedAvailableFormats = jsonfile["commonlyUsedAvailableFormats"];
+                commonlyUsedAvailableFormats.forEach(function (item) {
 
-                str+= `<option value='${item["url"]}' itag="${item["itag"]}">${item["quality"]} ${item["type"]}`;
+                    str+= `<option value='${item["url"]}' itag="${item["itag"]}">${item["quality"]} ${item["type"]}`;
 
-                if (item["size"] != "0 MB") {
-                    str+= ` (${item["size"]})`;
-                }
+                    if (item["size"] != "0 MB") {
+                        str+= ` (${item["size"]})`;
+                    }
 
-                str+= `</option>`;
-            });
+                    str+= `</option>`;
+                });
 
-            str += `</optgroup></select> <button onclick="downloadVideo1()">Download</button></div>`;
-
-
-            //for all formats
-            str += `<br><br> <strong>All available Video (without Audio) and Audio Formats </strong><br> <div style="margin: 10px;"><select id="selectid2"><optgroup label="Videos without audio and audio only">`;
-
-            let allAvailableFormats = jsonfile["remainingFormats"];
-            allAvailableFormats.forEach(function (item) {
-
-                str+= `<option value='${item["url"]}' itag="${item["itag"]}">${item["quality"]} ${item["type"]}`;
-
-                if (item["size"] != "0 MB") {
-                    str+= ` (${item["size"]})`;
-                }
-
-                str+= `</option>`;
-            });
-
-            str += `</optgroup></select> <button onclick="downloadVideo2()">Download</button></div></div></div></div><br><div style="text-align: center;">By using this website, you accept our Terms of Service and agree not to download Copyright content.</div><br><br>`;
+                str += `</optgroup></select> <button onclick="downloadVideo1()">Download</button></div>`;
 
 
-            console.log(str);
-            DOMtitle.innerHTML = str;
-            parent.innerText = "";
-            parent.appendChild(DOMtitle);
+                //for all formats
+                str += `<br><br> <strong>All available Video (without Audio) and Audio Formats </strong><br> <div style="margin: 10px;"><select id="selectid2"><optgroup label="Videos without audio and audio only">`;
+
+                let allAvailableFormats = jsonfile["remainingFormats"];
+                allAvailableFormats.forEach(function (item) {
+
+                    str+= `<option value='${item["url"]}' itag="${item["itag"]}">${item["quality"]} ${item["type"]}`;
+
+                    if (item["size"] != "0 MB") {
+                        str+= ` (${item["size"]})`;
+                    }
+
+                    str+= `</option>`;
+                });
+
+                str += `</optgroup></select> <button onclick="downloadVideo2()">Download</button></div></div></div></div><br><div style="text-align: center;">By using this website, you accept our Terms of Service and agree not to download Copyright content.</div><br><br>`;
+
+
+                console.log(str);
+                DOMtitle.innerHTML = str;
+                parent.innerText = "";
+                parent.appendChild(DOMtitle);
+            }
+            catch(Exception){
+                DOMtitle.innerHTML = "Wrong Video Url. <br> Make sure your video url has the following format: https://www.youtube.com/watch?v=CrqlVLsUpB8";
+                parent.innerText = "";
+                parent.appendChild(DOMtitle);
+            }
         },
         error: function (data) {
-            console.log("error occured");
+            let DOMtitle = document.createElement("div");
+            DOMtitle.innerText = "Error occured. Try again...";
+            parent.innerText = "";
+            parent.appendChild(DOMtitle);
         }
     });
-    console.log("yeah22");
+    console.log("If facing any issues. https://github.com/tmibvishal/tmibyoutube/issues");
 }
