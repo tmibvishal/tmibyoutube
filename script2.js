@@ -7,6 +7,12 @@ function getvidurl(wholeUrl) {
     return decodeURIComponent(yUrl);
 }
 
+function downloadAudio(url){
+    let a = document.createElement("a");
+    a.href = url;
+    a.click();
+}
+
 function downloadVideo1(but){
     let parent = document.getElementById("selectid1")
     let url = parent.value;
@@ -43,6 +49,7 @@ window.onload = function () {
                 //console.log(jsonfile["videoTitle"]);
                 //console.log(jsonfile["videoAuthor"]);
 
+                let substr = "";
                 let str = `<div class="flex-container"><div class="box1_style2"><div style="text-align: center; margin: auto;"><strong>${jsonfile["videoTitle"]}</strong> <br>
 <strong>Channel:</strong> ${jsonfile["videoAuthor"]} <br>`;
                 if (jsonfile["videoViews"] != null)
@@ -67,22 +74,36 @@ window.onload = function () {
                 //for all formats
                 str += `<br><br> <strong>All available Video (without Audio) and Audio Formats </strong><br> <div style="margin: 10px;"><select id="selectid2"><optgroup label="Videos without audio and audio only">`;
 
+                let itag;
+
                 let allAvailableFormats = jsonfile["remainingFormats"];
                 allAvailableFormats.forEach(function (item) {
 
-                    str+= `<option value='${item["url"]}' itag="${item["itag"]}">${item["quality"]} ${item["type"]}`;
+                    itag = item["itag"];
+
+                    str+= `<option value='${item["url"]}' itag="${itag}">${item["quality"]} ${item["type"]}`;
 
                     if (item["size"] != "0 MB") {
                         str+= ` (${item["size"]})`;
                     }
 
+                    if(itag == 140){
+                        substr = `<br><strong>Extract Audio</strong>`;
+                        if(item["size"] != "0 MB"){
+                            substr += ` (Size ${item["size"]})`;
+                        }
+                        substr += `<br><button onclick="downloadAudio('${item["url"]}')">Extract Audio</button> </div>`;
+                    }
+
                     str+= `</option>`;
                 });
 
-                str += `</optgroup></select> <button onclick="downloadVideo2()">Download</button></div></div></div></div><br><div style="text-align: center;">By using this website, you accept our Terms of Service and agree not to download Copyright content.</div><br><br>`;
+                str += `</optgroup></select> <button onclick="downloadVideo2()">Download</button></div>`;
 
 
-                console.log(str);
+                //console.log(str);
+                str += substr;
+                str += `</div></div></div><br><div style="text-align: center;">By using this website, you accept our Terms of Service and agree not to download Copyright content.</div><br><br>`;
                 DOMtitle.innerHTML = str;
                 parent.innerText = "";
                 parent.appendChild(DOMtitle);
