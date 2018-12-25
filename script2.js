@@ -36,7 +36,8 @@ window.onload = function () {
     let parent = document.getElementById("video");
     console.log("Tmib Video Downloader web v1.0");
     let current_url = document.URL;
-    //console.log("current url 3 is :" + getvidurl(current_url));
+    //console.log(current_url);
+    //console.log("current url 3 is :" + encodeURIComponent(getvidurl(current_url)));
     $.ajax({
         url: "https://tmibvishal.000webhostapp.com/getting_json.php",
         method: "get",
