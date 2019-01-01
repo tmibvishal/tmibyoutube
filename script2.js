@@ -104,7 +104,7 @@ window.onload = function () {
 
                 //console.log(str);
                 str += substr;
-                str += `</div></div></div><br><div style="text-align: center;">By using this website, you accept our Terms of Service and agree not to download Copyright content.</div><br><br>`;
+                str += `</div></div></div><br><div style="text-align: center;">By using this website, you accept our<a href="terms.html"> Terms of Service </a>and agree not to download Copyright content.</div><br><br>`;
                 DOMtitle.innerHTML = str;
                 parent.innerText = "";
                 parent.appendChild(DOMtitle);
