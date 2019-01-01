@@ -41,11 +41,6 @@ button{
 
 @media screen and (max-width: 400px) {
 
-    .screenshot-page2{
-        width: 100%;
-        height: auto;
-    }
-
     .crop {
         text-align: center;
         height: auto;
